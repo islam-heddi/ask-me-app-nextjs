@@ -5,13 +5,21 @@ import { Button, TextField, Divider, Chip } from "@mui/material";
 import { GoogleIcon, GithubIcon } from "@/components/CustomIcons";
 import Link from "next/link";
 
-function loginPage() {
+function registerPage() {
   const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   return (
     <div className="grid place-items-center h-[100vh]">
       <div className="flex flex-col w-[100%] gap-3 p-6 items-center justify-center">
-        <h1 className="text-3xl">Login</h1>
+        <h1 className="text-3xl">Register</h1>
+        <TextField
+          variant="standard"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          label="Username"
+          type="text"
+        />
         <TextField
           variant="standard"
           value={email}
@@ -29,7 +37,7 @@ function loginPage() {
         <div className="flex flex-row gap-3 flex-wrap">
           <Button
             className="m-3"
-            onClick={() => alert(`successfully logged`)}
+            onClick={() => alert(`Hello ${name}`)}
             variant="contained"
           >
             Submit
@@ -39,6 +47,7 @@ function loginPage() {
             onClick={() => {
               setEmail("");
               setPassword("");
+              setName("");
             }}
             variant="contained"
             sx={{
@@ -49,8 +58,8 @@ function loginPage() {
           </Button>
         </div>
         <p>
-          IF you dont have an account, your can register{" "}
-          <Link href="/register" className="text-blue-400">
+          IF you have an account, your can login{" "}
+          <Link href="/login" className="text-blue-400">
             from here
           </Link>
           .
@@ -77,4 +86,4 @@ function loginPage() {
   );
 }
 
-export default loginPage;
+export default registerPage;
