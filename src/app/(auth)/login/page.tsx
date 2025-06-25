@@ -2,9 +2,8 @@
 "use client";
 import React, { useState } from "react";
 import { Button, TextField, Divider, Chip } from "@mui/material";
-import { GoogleIcon, GithubIcon } from "@/components/CustomIcons";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import OAuthGoogleGithub from "@/components/OAuthGoogleGithub";
 
 function loginPage() {
   const [email, setEmail] = useState<string>("");
@@ -59,20 +58,7 @@ function loginPage() {
         <Divider>
           <Chip label="OR" size="medium" />
         </Divider>
-        <Button
-          variant="outlined"
-          onClick={() => alert("Sign in with Google")}
-          startIcon={<GoogleIcon />}
-        >
-          Sign in with Google
-        </Button>
-        <Button
-          variant="outlined"
-          onClick={() => signIn("github")}
-          startIcon={<GithubIcon />}
-        >
-          Sign in with GitHub
-        </Button>
+        <OAuthGoogleGithub />
       </div>
     </div>
   );

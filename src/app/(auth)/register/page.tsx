@@ -2,8 +2,8 @@
 "use client";
 import React, { useState } from "react";
 import { Button, TextField, Divider, Chip } from "@mui/material";
-import { GoogleIcon, GithubIcon } from "@/components/CustomIcons";
 import Link from "next/link";
+import OAuthGoogleGithub from "@/components/OAuthGoogleGithub";
 
 function registerPage() {
   const [email, setEmail] = useState<string>("");
@@ -67,20 +67,7 @@ function registerPage() {
         <Divider>
           <Chip label="OR" size="medium" />
         </Divider>
-        <Button
-          variant="outlined"
-          onClick={() => alert("Sign in with Google")}
-          startIcon={<GoogleIcon />}
-        >
-          Sign in with Google
-        </Button>
-        <Button
-          variant="outlined"
-          onClick={() => alert("Sign in with Github")}
-          startIcon={<GithubIcon />}
-        >
-          Sign in with GitHub
-        </Button>
+        <OAuthGoogleGithub />
       </div>
     </div>
   );
