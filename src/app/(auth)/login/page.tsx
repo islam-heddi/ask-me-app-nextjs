@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Button, TextField, Divider, Chip } from "@mui/material";
 import { GoogleIcon, GithubIcon } from "@/components/CustomIcons";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 function loginPage() {
   const [email, setEmail] = useState<string>("");
@@ -67,7 +68,7 @@ function loginPage() {
         </Button>
         <Button
           variant="outlined"
-          onClick={() => alert("Sign in with Github")}
+          onClick={() => signIn("github")}
           startIcon={<GithubIcon />}
         >
           Sign in with GitHub
