@@ -1,14 +1,33 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { Button, TextField, Divider, Chip } from "@mui/material";
 import Link from "next/link";
 import OAuthGoogleGithub from "@/components/OAuthGoogleGithub";
+import { toast } from "react-toastify";
+import { register } from "@/app/actions/posts";
 
 function registerPage() {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isPending, startTransition] = useTransition();
+  const handleSubmit = async () => {
+    startTransition(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result: any = await register({
+        email,
+        password,
+        name,
+      });
+
+      if (result?.error)
+        toast.error("Error" + JSON.stringify(result?.error), {
+          position: "bottom-center",
+        });
+    });
+  };
+
   return (
     <div className="grid place-items-center h-[100vh]">
       <div className="flex flex-col w-[100%] gap-3 p-6 items-center justify-center">
@@ -36,11 +55,12 @@ function registerPage() {
         />
         <div className="flex flex-row gap-3 flex-wrap">
           <Button
+            disabled={isPending}
             className="m-3"
-            onClick={() => alert(`Hello ${name}`)}
+            onClick={() => handleSubmit()}
             variant="contained"
           >
-            Submit
+            {isPending ? "Wait ...." : "Submit"}
           </Button>
           <Button
             className="m-3"
