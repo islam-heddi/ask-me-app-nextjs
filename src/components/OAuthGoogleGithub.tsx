@@ -1,8 +1,19 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { GoogleIcon, GithubIcon } from "./CustomIcons";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 export default function OAuthGoogleGithub() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (session) {
+      router.push("/profile");
+    }
+  }, [session, router]);
+
   return (
     <div className="flex flex-col gap-4">
       <Button

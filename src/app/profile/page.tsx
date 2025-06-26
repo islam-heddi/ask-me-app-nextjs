@@ -1,8 +1,17 @@
+"use client";
 import React from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-export default async function Profile() {
-  const session = await getServerSession(authOptions);
-  if (!session) return <div>Access denied</div>;
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+export default function Profile() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, [session, router]);
+
   return <div>page profile {session?.user?.name}</div>;
 }
