@@ -2,9 +2,33 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {},
+        password: {},
+      },
+      async authorize(credentials) {
+        const email = credentials?.email;
+        const password = credentials?.password;
+        if (!email) return null;
+        if (!password) return null;
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials?.email,
+          },
+        });
+        if (!user) return null;
+        const comPwd = await compare(password, user.password as string);
+        if (!comPwd) return null;
+        return user;
+      },
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
@@ -51,11 +75,9 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        if (token) {
-          session.user.id = token.id;
-          session.user.name = token.name;
-          session.user.email = token.email;
-        }
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
       }
       return session;
     },

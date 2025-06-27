@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Button, TextField, Divider, Chip } from "@mui/material";
 import Link from "next/link";
 import OAuthGoogleGithub from "@/components/OAuthGoogleGithub";
+import { signIn } from "next-auth/react";
 
 function loginPage() {
   const [email, setEmail] = useState<string>("");
@@ -29,7 +30,13 @@ function loginPage() {
         <div className="flex flex-row gap-3 flex-wrap">
           <Button
             className="m-3"
-            onClick={() => alert(`successfully logged`)}
+            onClick={() =>
+              signIn("credentials", {
+                redirect: false,
+                email,
+                password,
+              })
+            }
             variant="contained"
           >
             Submit
