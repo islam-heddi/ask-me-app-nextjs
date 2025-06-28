@@ -3,6 +3,7 @@ import { GetQuestionById } from "@/app/actions/questions";
 import { ErrorSchema, QuestionSchema } from "@/types/types";
 import AddAnswerComponent from "@/components/AddAnswerComponent";
 import ViewAnswers from "@/components/ViewAnswers";
+import getUser from "@/app/actions/user";
 export default async function GetQuestionId({
   params,
 }: {
@@ -17,6 +18,7 @@ export default async function GetQuestionId({
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-2/4 p-6 bg-white m-4 rounded-2xl shadow-2xl">
+        <p>By : {(await getUser((data as QuestionSchema).userId)).name}</p>
         <h1 className="text-[20px]">
           <i className="text-gray-600">title:</i>{" "}
           {(data as QuestionSchema).title}

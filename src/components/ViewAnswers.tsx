@@ -2,6 +2,7 @@ import { GetAnswers } from "@/app/actions/answers";
 import { AnswerSchema, ErrorSchema } from "@/types/types";
 import React from "react";
 import Vote from "./Vote";
+import getUser from "@/app/actions/user";
 
 export default async function ViewAnswers({
   questionId,
@@ -15,9 +16,10 @@ export default async function ViewAnswers({
       {(data as AnswerSchema[]).length < 1 ? (
         <div>No Answers are available</div>
       ) : (
-        (data as AnswerSchema[]).map((value, index) => (
+        (data as AnswerSchema[]).map(async (value, index) => (
           <div className="mb-6" key={index}>
             <div className=" p-6 bg-white m-4 rounded-2xl shadow-2xl">
+              <p>By : {(await getUser(value.userId)).name}</p>
               <p className="p-5">{value.body}</p>
               <p>{value.createdAt.toISOString()}</p>
             </div>
