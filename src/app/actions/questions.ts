@@ -19,3 +19,35 @@ export async function AddQuestion(data: QuestionSchema) {
     };
   }
 }
+
+export async function GetQuestions() {
+  try {
+    const result = await prisma.question.findMany();
+
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
+
+export async function GetQuestionById(id: string) {
+  try {
+    const result = await prisma.question.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
