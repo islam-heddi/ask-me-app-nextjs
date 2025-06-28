@@ -24,3 +24,10 @@ export type ErrorSchema = {
   message: string;
   error: string;
 };
+
+export type VoteSchema = {
+  id?: string;
+  userId: string;
+  value: 1 | -1;
+  answerId: string;
+};

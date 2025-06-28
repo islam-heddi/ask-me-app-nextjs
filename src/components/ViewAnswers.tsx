@@ -21,7 +21,7 @@ export default async function ViewAnswers({
               <p className="p-5">{value.body}</p>
               <p>{value.createdAt.toISOString()}</p>
             </div>
-            <Vote userId={value.userId} answerId={value.id} />
+            <Vote answerId={value.id} />
           </div>
         ))
       )}
