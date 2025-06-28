@@ -1,6 +1,7 @@
 import React from "react";
 import { GetQuestionById } from "@/app/actions/questions";
 import { ErrorSchema, QuestionSchema } from "@/types/types";
+import AddAnswerComponent from "@/components/AddAnswerComponent";
 export default async function GetQuestionId({
   params,
 }: {
@@ -22,6 +23,7 @@ export default async function GetQuestionId({
         <p>{(data as QuestionSchema).body}</p>
         <p>{(data as QuestionSchema).createdAt.toISOString()}</p>
       </div>
+      <AddAnswerComponent questionId={id} />
     </div>
   );
 }
