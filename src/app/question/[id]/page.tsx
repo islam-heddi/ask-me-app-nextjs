@@ -2,6 +2,7 @@ import React from "react";
 import { GetQuestionById } from "@/app/actions/questions";
 import { ErrorSchema, QuestionSchema } from "@/types/types";
 import AddAnswerComponent from "@/components/AddAnswerComponent";
+import ViewAnswers from "@/components/ViewAnswers";
 export default async function GetQuestionId({
   params,
 }: {
@@ -24,6 +25,7 @@ export default async function GetQuestionId({
         <p>{(data as QuestionSchema).createdAt.toISOString()}</p>
       </div>
       <AddAnswerComponent questionId={id} />
+      <ViewAnswers questionId={id as string} />
     </div>
   );
 }

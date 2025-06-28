@@ -17,7 +17,7 @@ export type AnswerSchema = {
   body: string;
   questionId: string;
   userId: string;
-  createdAt: string;
+  createdAt: Date;
 };
 
 export type ErrorSchema = {

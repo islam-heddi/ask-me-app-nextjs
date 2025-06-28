@@ -27,3 +27,20 @@ export default async function AddAnswer({
     };
   }
 }
+
+export async function GetAnswers(questionId: string) {
+  try {
+    const result = await prisma.answer.findMany({
+      where: {
+        questionId,
+      },
+    });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
