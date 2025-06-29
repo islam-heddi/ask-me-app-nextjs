@@ -45,6 +45,26 @@ export async function GetAnswers(questionId: string) {
   }
 }
 
+export async function UpdateAnswer(answerId: string, body: string) {
+  try {
+    const result = await prisma.answer.update({
+      where: {
+        id: answerId,
+      },
+      data: {
+        body,
+      },
+    });
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
+
 export async function DeleteAnswer(id: string) {
   try {
     await prisma.vote.deleteMany({

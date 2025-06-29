@@ -4,6 +4,7 @@ import React from "react";
 import Vote from "./Vote";
 import getUser from "@/app/actions/user";
 import DeleteAnswerButton from "./DeleteAnswer";
+import UpdateAnswerButton from "./UpdateAnswerButton";
 
 export default async function ViewAnswers({
   questionId,
@@ -23,6 +24,7 @@ export default async function ViewAnswers({
               <p>By : {(await getUser(value.userId)).name}</p>
               <p className="p-5">{value.body}</p>
               <p>{value.createdAt.toISOString()}</p>
+              <UpdateAnswerButton answerId={value.id} userId={value.userId} />
             </div>
             <DeleteAnswerButton answerId={value.id} userId={value.userId} />
             <Vote answerId={value.id} />
