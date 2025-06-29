@@ -3,6 +3,7 @@ import { AnswerSchema, ErrorSchema } from "@/types/types";
 import React from "react";
 import Vote from "./Vote";
 import getUser from "@/app/actions/user";
+import DeleteAnswerButton from "./DeleteAnswer";
 
 export default async function ViewAnswers({
   questionId,
@@ -23,6 +24,7 @@ export default async function ViewAnswers({
               <p className="p-5">{value.body}</p>
               <p>{value.createdAt.toISOString()}</p>
             </div>
+            <DeleteAnswerButton answerId={value.id} userId={value.userId} />
             <Vote answerId={value.id} />
           </div>
         ))

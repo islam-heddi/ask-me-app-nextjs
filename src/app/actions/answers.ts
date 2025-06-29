@@ -44,3 +44,27 @@ export async function GetAnswers(questionId: string) {
     };
   }
 }
+
+export async function DeleteAnswer(id: string) {
+  try {
+    await prisma.vote.deleteMany({
+      where: {
+        answerId: id,
+      },
+    });
+
+    const result = await prisma.answer.delete({
+      where: {
+        id,
+      },
+    });
+
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
