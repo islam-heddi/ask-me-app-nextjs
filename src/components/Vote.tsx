@@ -1,8 +1,8 @@
 "use client";
-import AddVote from "@/app/actions/votes";
-import { ErrorSchema } from "@/types/types";
+import AddVote, { GetVotes } from "@/app/actions/votes";
+import { ErrorSchema, VoteSchema } from "@/types/types";
 import { useSession } from "next-auth/react";
-import React, { useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "react-toastify";
 
 interface VoteProps {
@@ -12,6 +12,24 @@ interface VoteProps {
 export default function Vote({ answerId }: VoteProps) {
   const [isPending, startTransition] = useTransition();
   const { data: session } = useSession();
+  const [votes, setVotes] = useState<{ upVote: number; deVote: number }>({
+    upVote: 0,
+    deVote: 0,
+  });
+  useEffect(() => {
+    const BringVotes = async () => {
+      const result = await GetVotes(answerId);
+      const upVote = (result as VoteSchema[]).filter(
+        (value) => value.value == 1
+      );
+      const deVote = (result as VoteSchema[]).filter(
+        (value) => value.value == -1
+      );
+      setVotes({ upVote: upVote.length, deVote: deVote.length });
+    };
+    BringVotes();
+  }, [answerId]);
+
   const handleVote = (value: 1 | -1) => {
     if (!session) {
       toast.error("You have to login", {
@@ -61,12 +79,14 @@ export default function Vote({ answerId }: VoteProps) {
           >
             &uarr;
           </div>
+          {votes.upVote}
           <div
             onClick={() => handleVote(-1)}
             className="rounded-2xl inline-block p-3 text-center cursor-pointer text-2xl hover:bg-gray-500 transition-colors"
           >
             &darr;
           </div>
+          {votes.deVote}
         </div>
       )}
     </>

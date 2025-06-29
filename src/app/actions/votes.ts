@@ -38,3 +38,21 @@ export default async function AddVote({ userId, answerId, value }: VoteSchema) {
     };
   }
 }
+
+export async function GetVotes(answerId: string) {
+  try {
+    const result = await prisma.vote.findMany({
+      where: {
+        answerId,
+      },
+    });
+
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
