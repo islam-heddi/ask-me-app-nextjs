@@ -73,7 +73,11 @@ export async function DeleteQuestion(id: string) {
   }
 }
 
-export async function UpdateQuestion(questionId: string, body: string) {
+export async function UpdateQuestion(
+  questionId: string,
+  body: string,
+  title: string
+) {
   try {
     await prisma.question.update({
       where: {
@@ -81,6 +85,7 @@ export async function UpdateQuestion(questionId: string, body: string) {
       },
       data: {
         body: body,
+        title,
       },
     });
   } catch (err) {

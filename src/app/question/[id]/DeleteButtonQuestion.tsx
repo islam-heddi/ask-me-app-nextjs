@@ -28,7 +28,11 @@ export default function DeleteQuestionButton({
   return (
     <>
       {session?.user.id == userId ? (
-        <Button variant="contained" onClick={() => handleDelete()}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "red" }}
+          onClick={() => handleDelete()}
+        >
           Delete
         </Button>
       ) : (

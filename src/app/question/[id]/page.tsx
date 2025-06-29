@@ -5,6 +5,8 @@ import AddAnswerComponent from "@/components/AddAnswerComponent";
 import ViewAnswers from "@/components/ViewAnswers";
 import getUser from "@/app/actions/user";
 import DeleteQuestionButton from "./DeleteButtonQuestion";
+import UpdateButtonQuestion from "./UpdateButtonQuestion";
+
 export default async function GetQuestionId({
   params,
 }: {
@@ -26,10 +28,16 @@ export default async function GetQuestionId({
         </h1>
         <p>{(data as QuestionSchema).body}</p>
         <p>{(data as QuestionSchema).createdAt.toISOString()}</p>
-        <DeleteQuestionButton
-          userId={(data as QuestionSchema).userId}
-          questionId={(data as QuestionSchema).id}
-        />
+        <div className="flex flex-row flex-wrap gap-4">
+          <UpdateButtonQuestion
+            questionId={(data as QuestionSchema).id}
+            userId={(data as QuestionSchema).userId}
+          />
+          <DeleteQuestionButton
+            userId={(data as QuestionSchema).userId}
+            questionId={(data as QuestionSchema).id}
+          />
+        </div>
       </div>
       <AddAnswerComponent questionId={id} />
       <ViewAnswers questionId={id as string} />
