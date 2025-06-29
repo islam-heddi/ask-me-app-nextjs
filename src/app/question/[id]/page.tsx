@@ -4,6 +4,7 @@ import { ErrorSchema, QuestionSchema } from "@/types/types";
 import AddAnswerComponent from "@/components/AddAnswerComponent";
 import ViewAnswers from "@/components/ViewAnswers";
 import getUser from "@/app/actions/user";
+import DeleteQuestionButton from "./DeleteButtonQuestion";
 export default async function GetQuestionId({
   params,
 }: {
@@ -25,6 +26,10 @@ export default async function GetQuestionId({
         </h1>
         <p>{(data as QuestionSchema).body}</p>
         <p>{(data as QuestionSchema).createdAt.toISOString()}</p>
+        <DeleteQuestionButton
+          userId={(data as QuestionSchema).userId}
+          questionId={(data as QuestionSchema).id}
+        />
       </div>
       <AddAnswerComponent questionId={id} />
       <ViewAnswers questionId={id as string} />

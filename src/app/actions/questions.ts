@@ -51,3 +51,24 @@ export async function GetQuestionById(id: string) {
     };
   }
 }
+
+export async function DeleteQuestion(id: string) {
+  try {
+    await prisma.answer.deleteMany({
+      where: {
+        questionId: id,
+      },
+    });
+    await prisma.question.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
