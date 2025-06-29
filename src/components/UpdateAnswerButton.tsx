@@ -7,9 +7,11 @@ import { useSession } from "next-auth/react";
 export default function UpdateAnswerButton({
   answerId,
   userId,
+  body,
 }: {
   userId: string;
   answerId: string;
+  body: string;
 }) {
   const { data: session } = useSession();
   const [isUpdate, setIsUpdate] = React.useState<boolean>(false);
@@ -37,7 +39,7 @@ export default function UpdateAnswerButton({
             >
               Quit
             </div>
-            <UpdateAnswerComponent answerId={answerId} />
+            <UpdateAnswerComponent answerId={answerId} body={body} />
           </div>
         </div>
       ) : (

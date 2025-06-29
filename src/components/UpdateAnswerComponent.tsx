@@ -7,8 +7,10 @@ import { UpdateAnswer } from "@/app/actions/answers";
 
 export default function UpdateAnswerComponent({
   answerId,
+  body,
 }: {
   answerId: string;
+  body: string;
 }) {
   const [isPending, startTransition] = useTransition();
   const textRef = React.useRef<HTMLTextAreaElement>(null);
@@ -43,8 +45,9 @@ export default function UpdateAnswerComponent({
 
   return (
     <div className="p-6 bg-white m-4 rounded-2xl shadow-2xl">
-      <h1 className="text-2xl">Update</h1>
+      <h1 className="text-2xl">Update Answer</h1>
       <textarea
+        defaultValue={body}
         className="w-full p-4 m-4 h-24 resize-none border-black border-1"
         placeholder="Write you question here"
         ref={textRef}

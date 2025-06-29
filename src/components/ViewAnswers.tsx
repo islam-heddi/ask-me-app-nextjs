@@ -24,7 +24,11 @@ export default async function ViewAnswers({
               <p>By : {(await getUser(value.userId)).name}</p>
               <p className="p-5">{value.body}</p>
               <p>{value.createdAt.toISOString()}</p>
-              <UpdateAnswerButton answerId={value.id} userId={value.userId} />
+              <UpdateAnswerButton
+                body={value.body}
+                answerId={value.id}
+                userId={value.userId}
+              />
             </div>
             <DeleteAnswerButton answerId={value.id} userId={value.userId} />
             <Vote answerId={value.id} />

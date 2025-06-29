@@ -72,3 +72,22 @@ export async function DeleteQuestion(id: string) {
     };
   }
 }
+
+export async function UpdateQuestion(questionId: string, body: string) {
+  try {
+    await prisma.question.update({
+      where: {
+        id: questionId,
+      },
+      data: {
+        body: body,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
