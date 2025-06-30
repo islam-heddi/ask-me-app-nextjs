@@ -13,7 +13,7 @@ export default function Menu() {
   const profile = (
     <>
       <p className="cursor-pointer" onClick={() => router.push("/profile")}>
-        Profile
+        {session?.user.name}
       </p>
       <Button
         variant="contained"

@@ -52,6 +52,24 @@ export async function GetQuestionById(id: string) {
   }
 }
 
+export async function GetQuestionByUserId(id: string) {
+  try {
+    const result = await prisma.question.findMany({
+      where: {
+        userId: id,
+      },
+    });
+
+    return result.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  } catch (err) {
+    console.error(err);
+    return {
+      error: "internal server error",
+      message: new Error(err as string).message,
+    };
+  }
+}
+
 export async function DeleteQuestion(id: string) {
   try {
     await prisma.answer.deleteMany({
