@@ -24,7 +24,7 @@ export async function GetQuestions() {
   try {
     const result = await prisma.question.findMany();
 
-    return result;
+    return result.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   } catch (err) {
     console.error(err);
     return {

@@ -35,7 +35,7 @@ export async function GetAnswers(questionId: string) {
         questionId,
       },
     });
-    return result;
+    return result.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   } catch (err) {
     console.error(err);
     return {
