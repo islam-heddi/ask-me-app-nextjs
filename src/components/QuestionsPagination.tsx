@@ -15,23 +15,17 @@ export default function Pagination({
   useEffect(() => {
     if (MyQuesions as QuestionSchema[]) {
       const pg: number = (MyQuesions as QuestionSchema[]).length / 5;
-      setPages(parseInt(pg.toFixed() + 1));
+      setPages(pg);
     }
+    setCurrentPage(1);
+    setStartIndex(0);
+    setEndIndex(10);
   }, [MyQuesions]);
-
-  const handleIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentPage(parseInt(e.target.value));
-    setStartIndex(currentPage - 1);
-    setEndIndex(currentPage + 5);
-  };
 
   return (
     <div className="flex flex-col">
       {(MyQuesions as QuestionSchema[])
-        .filter(
-          (_, index) =>
-            index >= startIndex && index <= endIndex && currentPage <= pages
-        )
+        .filter((_, index) => index >= startIndex && index <= endIndex)
         .map((value, index) => (
           <div key={index}>
             <div className="p-6 bg-white m-4 rounded-2xl shadow-2xl">
@@ -50,15 +44,31 @@ export default function Pagination({
           </div>
         ))}
       <div>
-        Page :{" "}
-        <input
-          className="w-[40px] border-black border-2"
-          type="number"
-          min="1"
-          onChange={(e) => handleIndex(e)}
-          value={currentPage}
-        />
-        /{pages.toFixed()}
+        <span
+          className="text-blue-600 cursor-pointer"
+          onClick={() => {
+            if (currentPage > 0) {
+              setStartIndex((prev) => prev - 5);
+              setEndIndex(startIndex - 1);
+              setCurrentPage((prev) => prev - 1);
+            }
+          }}
+        >
+          Prev
+        </span>{" "}
+        Page :{currentPage}/{pages}
+        <span
+          className="text-blue-600 cursor-pointer"
+          onClick={() => {
+            if (currentPage <= pages) {
+              setStartIndex(endIndex + 1);
+              setEndIndex((prev) => prev + 5);
+              setCurrentPage((prev) => prev + 1);
+            }
+          }}
+        >
+          Next
+        </span>
       </div>
     </div>
   );
