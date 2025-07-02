@@ -23,11 +23,8 @@ export default function Pagination({
   }, [MyQuesions]);
 
   const getPage = (data: QuestionSchema[], currentPage: number) => {
-    console.log("current page : " + currentPage);
-    console.log(data);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    console.log(data.slice(startIndex, endIndex));
     return data.slice(startIndex, endIndex);
   };
 
