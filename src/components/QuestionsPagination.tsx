@@ -8,62 +8,73 @@ export default function Pagination({
 }: {
   MyQuesions: QuestionSchema[] | ErrorSchema;
 }) {
+  const itemsPerPage: number = 5;
+
   const [pages, setPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [startIndex, setStartIndex] = useState<number>(0);
-  const [endIndex, setEndIndex] = useState<number>(0);
+  const [result, setResult] = useState<QuestionSchema[]>([]);
   useEffect(() => {
     if (MyQuesions as QuestionSchema[]) {
-      const pg: number = (MyQuesions as QuestionSchema[]).length / 5;
-      setPages(pg);
+      setPages(
+        Math.ceil((MyQuesions as QuestionSchema[]).length / itemsPerPage)
+      );
+      setResult(getPage(MyQuesions as QuestionSchema[], 1));
     }
-    setCurrentPage(1);
-    setStartIndex(0);
-    setEndIndex(10);
   }, [MyQuesions]);
+
+  const getPage = (data: QuestionSchema[], currentPage: number) => {
+    console.log("current page : " + currentPage);
+    console.log(data);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    console.log(data.slice(startIndex, endIndex));
+    return data.slice(startIndex, endIndex);
+  };
 
   return (
     <div className="flex flex-col">
-      {(MyQuesions as QuestionSchema[])
-        .filter((_, index) => index >= startIndex && index <= endIndex)
-        .map((value, index) => (
-          <div key={index}>
-            <div className="p-6 bg-white m-4 rounded-2xl shadow-2xl">
-              <h1 className="text-[20px]">
-                <i className="text-gray-600">title:</i> {value.title}
-              </h1>
-              <p>{value.body}</p>
-              <p>{value.createdAt.toISOString()}</p>
-              <Link
-                href={`/question/${value.id}`}
-                className="inline-block text-blue-600 cursor-pointer"
-              >
-                View
-              </Link>
+      {result.length < 1
+        ? "No Questions are available"
+        : result.map((value, index) => (
+            <div key={index}>
+              <div className="p-6 bg-white m-4 rounded-2xl shadow-2xl">
+                <h1 className="text-[20px]">
+                  <i className="text-gray-600">title:</i> {value.title}
+                </h1>
+                <p>{value.body}</p>
+                <p>{value.createdAt.toISOString()}</p>
+                <Link
+                  href={`/question/${value.id}`}
+                  className="inline-block text-blue-600 cursor-pointer"
+                >
+                  View
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       <div>
         <span
           className="text-blue-600 cursor-pointer"
           onClick={() => {
-            if (currentPage > 0) {
-              setStartIndex((prev) => prev - 5);
-              setEndIndex(startIndex - 1);
+            if (currentPage > 1) {
               setCurrentPage((prev) => prev - 1);
+              setResult(
+                getPage(MyQuesions as QuestionSchema[], currentPage - 1)
+              );
             }
           }}
         >
           Prev
         </span>{" "}
-        Page :{currentPage}/{pages}
+        {currentPage}/{pages}{" "}
         <span
           className="text-blue-600 cursor-pointer"
           onClick={() => {
-            if (currentPage <= pages) {
-              setStartIndex(endIndex + 1);
-              setEndIndex((prev) => prev + 5);
+            if (currentPage < pages) {
               setCurrentPage((prev) => prev + 1);
+              setResult(
+                getPage(MyQuesions as QuestionSchema[], currentPage + 1)
+              );
             }
           }}
         >
