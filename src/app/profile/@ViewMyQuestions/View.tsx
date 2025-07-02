@@ -21,14 +21,15 @@ export default function ViewMyQuestions({ userId }: { userId: string }) {
     <div className=" p-6">
       <h1 className="text-2xl">My Questions</h1>
       {MyQuestions == null ? (
-        <h1 className="p-4">You dont have any questions</h1>
+        <></>
       ) : (
         <React.Fragment>
-          <QuestionsPagination MyQuesions={MyQuestions} />
           {(MyQuestions as QuestionSchema[]).length < 1 ? (
             <h1 className="p-4">You dont have any questions</h1>
           ) : (
-            <></>
+            <>
+              <QuestionsPagination MyQuesions={MyQuestions} />
+            </>
           )}
         </React.Fragment>
       )}

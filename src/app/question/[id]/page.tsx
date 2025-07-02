@@ -19,8 +19,8 @@ export default async function GetQuestionId({
   if ((result as ErrorSchema).error)
     return <div>{(result as ErrorSchema).message}</div>;
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="w-2/4 p-6 bg-white m-4 rounded-2xl shadow-2xl">
+    <div className="max-[1050px]:m-7 max-[1050px]:w-full flex flex-col justify-center items-center">
+      <div className="max-[1050px]:w-full w-2/4 p-6 bg-white m-4 rounded-2xl shadow-2xl">
         <p>By : {(await getUser((data as QuestionSchema).userId)).name}</p>
         <h1 className="text-[20px]">
           <i className="text-gray-600">title:</i>{" "}

@@ -46,7 +46,7 @@ export default function AddAnswerComponent({
   };
 
   return (
-    <div className="w-2/4 p-6 bg-white m-4 rounded-2xl shadow-2xl">
+    <div className="max-[1050px]:w-full w-2/4 p-6 bg-white m-4 rounded-2xl shadow-2xl">
       <textarea
         className="w-full p-4 m-4 h-24 resize-none border-black border-1"
         placeholder="Write you question here"

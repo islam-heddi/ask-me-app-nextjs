@@ -15,7 +15,7 @@ export default function GetQuestionsComponent() {
     get();
   }, []);
   return (
-    <div className="w-3/6">
+    <div className="w-3/6 max-[1050px]:w-full">
       <QuestionsPagination MyQuesions={Questions} />
     </div>
   );

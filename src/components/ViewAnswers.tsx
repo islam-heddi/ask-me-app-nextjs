@@ -13,7 +13,7 @@ export default async function ViewAnswers({
 }) {
   const data: AnswerSchema[] | ErrorSchema = await GetAnswers(questionId);
   return (
-    <div className="w-2/4">
+    <div className="max-[1050px]:w-full max-[1050px]:m-7 w-2/4">
       <h1 className="text-2xl">Answers</h1>
       {(data as AnswerSchema[]).length < 1 ? (
         <div>No Answers are available</div>
