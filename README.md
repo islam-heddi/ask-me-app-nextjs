@@ -23,8 +23,6 @@ DATABASE_URL="Postgres Database Link"
 
 .env.local
 
-## Learn More
-
 ```bash
 GITHUB_CLIENT_ID=Github-Client-id
 GITHUB_CLIENT_SECRET=Github-client-secret
