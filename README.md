@@ -14,20 +14,40 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dont forget to add .env and .env.local and put these following :
+.env
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+DATABASE_URL="Postgres Database Link"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+.env.local
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+GITHUB_CLIENT_ID=Github-Client-id
+GITHUB_CLIENT_SECRET=Github-client-secret
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GOOGLE_CLIENT_ID=google-client-id
+GOOGLE_CLIENT_SECRET=google-client-sercret
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXTAUTH_SECRET='nextauth-secret'
+NEXTAUTH_URL=url
+
+```
+
+Then run prisma migrations to ensure the synchroniztion between the server and the database
+
+```bash
+npx prisma migrate dev
+```
+
+and then run and enjoy :)
+
+```bash
+npm run dev
+```
 
 ## Deploy on Vercel
 
